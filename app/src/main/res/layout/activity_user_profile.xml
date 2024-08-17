@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor"
+    tools:context=".UserProfileActivity">
+
+  <ImageButton
+      android:id="@+id/backButton"
+      android:layout_width="50dp"
+      android:layout_height="50dp"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="48dp"
+      android:background="@android:color/transparent"
+      android:src="@drawable/baseline_arrow_back_24"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:layout_width="370dp"
+      android:layout_height="160dp"
+      android:layout_marginTop="400dp"
+      android:background="@drawable/meal_card_background"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/backButton">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/backUpMyData"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+          android:id="@+id/textVieww"
+          android:layout_width="wrap_content"
+          android:layout_height="36dp"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="Backup my data"
+          android:textColor="@color/primaryColor"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.5" />
+
+      <ImageView
+          android:id="@+id/imageVieww"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:foregroundTint="@color/primaryColor"
+          android:src="@drawable/baseline_navigate_next_24"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/textVieww"
+          app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/backUpMyData" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/logout"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/backUpMyData">
+
+      <TextView
+          android:id="@+id/textVieww2"
+          android:layout_width="wrap_content"
+          android:layout_height="37dp"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="Logout"
+          android:textColor="@color/primaryColor"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.5" />
+
+      <ImageView
+          android:id="@+id/imageVieww2"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:src="@drawable/baseline_navigate_next_24"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/textVieww2"
+          app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <TextView
+      android:id="@+id/greetingName"
+      android:layout_width="192dp"
+      android:layout_height="25dp"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="36dp"
+      android:text="Hi, User"
+      android:textColor="@color/black"
+      android:textSize="20sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/backButton" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/constraintLayout2"
+      android:layout_width="370dp"
+      android:layout_height="160dp"
+      android:layout_marginTop="150dp"
+      android:background="@drawable/meal_card_background"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/backButton">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/favoriteMeal"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+      <TextView
+          android:id="@+id/textView2"
+          android:layout_width="wrap_content"
+          android:layout_height="36dp"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="Favorite meals"
+          android:textColor="@color/primaryColor"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.5" />
+
+      <ImageView
+          android:id="@+id/imageView"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:foregroundTint="@color/primaryColor"
+          android:src="@drawable/baseline_navigate_next_24"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/textView2"
+          app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/primaryColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/favoriteMeal" />
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/myPlan"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favoriteMeal">
+
+      <TextView
+          android:id="@+id/textView3"
+          android:layout_width="wrap_content"
+          android:layout_height="37dp"
+          android:layout_marginStart="16dp"
+          android:gravity="center_vertical"
+          android:text="My plan"
+          android:textColor="@color/primaryColor"
+          android:textSize="20sp"
+          android:textStyle="bold"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent"
+          app:layout_constraintVertical_bias="0.5" />
+
+      <ImageView
+          android:id="@+id/imageView2"
+          android:layout_width="30dp"
+          android:layout_height="30dp"
+          android:src="@drawable/baseline_navigate_next_24"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/textView3"
+          app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
