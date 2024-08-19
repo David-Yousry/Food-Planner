@@ -10,6 +10,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 class UserProfileActivity : AppCompatActivity() {
     lateinit var favMeals : ConstraintLayout
     lateinit var backButton: ImageButton
+    lateinit var myplans : ConstraintLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -17,6 +18,7 @@ class UserProfileActivity : AppCompatActivity() {
         enableEdgeToEdge()
         favMeals = findViewById(R.id.favoriteMeal)
         backButton = findViewById(R.id.backButton)
+        myplans = findViewById(R.id.myPlan)
 
         favMeals.setOnClickListener {
             val intent = Intent(this, FavoriteMealsActivity::class.java)
@@ -24,6 +26,12 @@ class UserProfileActivity : AppCompatActivity() {
         }
         backButton.setOnClickListener {
             finish()
+        }
+        myplans.setOnClickListener{
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("replaceFrag", "MyPlans")
+            startActivity(intent)
+
         }
     }
 }

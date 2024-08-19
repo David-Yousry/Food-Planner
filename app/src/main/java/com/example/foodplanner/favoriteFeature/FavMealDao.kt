@@ -15,7 +15,4 @@ interface FavMealDao {
     suspend fun getFavMeals(): List<Meal>
     @Delete
     suspend fun removeFromFav(meal: Meal) :Int
-    // get count of meals in the database
-    @Query("SELECT COUNT(*) FROM meals")
-    suspend fun getFavMealsCount(): Int
 }

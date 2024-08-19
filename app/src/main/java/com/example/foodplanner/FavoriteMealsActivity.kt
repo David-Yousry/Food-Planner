@@ -50,6 +50,7 @@ class FavoriteMealsActivity : AppCompatActivity() {
     private fun onMealClick(meal: Meal): Int {
         val intent = Intent(this, MealActivity::class.java)
         intent.putExtra("mealTitle", meal.strMeal)
+        intent.putExtra("intentFrom","Fav")
         startActivity(intent)
         return 0
     }

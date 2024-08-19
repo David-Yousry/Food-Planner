@@ -2,6 +2,7 @@ package com.example.foodplanner
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +17,8 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var profileBtn : ImageButton
+
+    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -29,7 +32,18 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
             insets
         }
 
-        replaceFragment(HomeFragment())
+//        val replaceFrag = intent.getStringExtra("replaceFrag")
+//
+//        if(replaceFrag != null) {
+//            if (replaceFrag == "MyPlans") {
+//                Log.i(TAG, "onCreate: $replaceFrag")
+//                replaceFragment(WeekMealsFragment())
+//            }
+//        }
+//        else{
+//            replaceFragment(HomeFragment())
+//        }
+
 
         binding.bottomNavigationView.setOnItemSelectedListener {
 
@@ -57,8 +71,6 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
             val profileIntent = Intent(this, UserProfileActivity::class.java)
             startActivity(profileIntent)
         }
-
-
     }
 
     override fun replaceFragment(fragment: Fragment){

@@ -15,8 +15,10 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.foodplanner.db.MealsDatabase
+import com.example.foodplanner.db.PlanMealsDatabase
 import com.example.foodplanner.models.Meal
 import com.example.foodplanner.models.Meals
+import com.example.foodplanner.models.PlanMeal
 import com.example.foodplanner.network.MealsHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -40,11 +42,13 @@ class MealActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_meal)
         enableEdgeToEdge()
-        val mealDao = MealsDatabase.getInstance(this).mealsDao()
+        val favMealsDao = MealsDatabase.getInstance(this).mealsDao()
+        val plannedMealsDao = PlanMealsDatabase.getInstance(this).plannedMealsDao()
 
 
 
         val mealTitle = intent.getStringExtra("mealTitle")
+
         mealImg = findViewById(R.id.mealImg)
         mealName = findViewById(R.id.mealName)
         mealArea = findViewById(R.id.mealOrigin)
@@ -59,7 +63,7 @@ class MealActivity : AppCompatActivity() {
         }
 
         lifecycleScope.launch(Dispatchers.IO){
-            val favMeals = mealDao.getFavMeals()
+            val favMeals = favMealsDao.getFavMeals()
             meals = MealsHelper.service.getMealByName(mealTitle?:"")
             val meal = meals.meals[0]
             withContext(Dispatchers.Main){
@@ -85,31 +89,39 @@ class MealActivity : AppCompatActivity() {
         addToFavBtn.setOnClickListener {
             if(isFav){
                 lifecycleScope.launch(Dispatchers.IO){
-                    mealDao.removeFromFav(meals.meals[0])
+                    favMealsDao.removeFromFav(meals.meals[0])
                     withContext(Dispatchers.Main){
                         addToFavBtn.text = "Add to favorites"
                         isFav = false
-                        //Toast.makeText(this@MealActivity, "${mealDao.getFavMealsCount()} Meals in Favorite", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MealActivity, "Meal removed from favorite", Toast.LENGTH_SHORT).show()
                     }
                 }
             }else{
                 lifecycleScope.launch(Dispatchers.IO){
-                    mealDao.addToFav(meals.meals[0])
+                    favMealsDao.addToFav(meals.meals[0])
                     withContext(Dispatchers.Main){
                         addToFavBtn.text = "Remove from favorites"
                         isFav = true
-                        //Toast.makeText(this@MealActivity, "${mealDao.getFavMealsCount()} Meals in Favorite", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@MealActivity, "Meal added to favorite", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
+        }
+
+        //TODO handle plan meal button
+        planMealBtn.setOnClickListener {
+            val dialog = PlanMealDialogFragment(meals.meals[0]){ day->
+                lifecycleScope.launch(Dispatchers.IO){
+                    plannedMealsDao.addToPlan(PlanMeal(meals.meals[0].idMeal, day, meals.meals[0].strMeal, meals.meals[0].strMealThumb))
+                    withContext(Dispatchers.Main){
+                        Toast.makeText(this@MealActivity, "Meal planned for $it", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            dialog.show(supportFragmentManager, "PlanMealDialog")
 
         }
 
-
-
-
-
-        //TODO handle plan meal button
 
 
     }

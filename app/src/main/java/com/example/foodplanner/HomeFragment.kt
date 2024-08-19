@@ -2,6 +2,7 @@ package com.example.foodplanner
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -30,6 +31,9 @@ class HomeFragment : Fragment() {
     lateinit var adapter: MealAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var areas: Areas
+    lateinit var meals: List<Meal>
+
+    private val TAG = "HomeFragment"
 
 
     override fun onCreateView(
@@ -43,20 +47,39 @@ class HomeFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_home, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerView = view.findViewById(R.id.homeRecycler)
+        Log.i(TAG, "onViewCreated: 1")
 
         lifecycleScope.launch(Dispatchers.IO){
-            val meals = MealsHelper.service.getMealsByCategory("Seafood").meals
-            areas = MealsHelper.service.getAllAreas()
+            try {
+                areas = MealsHelper.service.getAllAreas()
+                meals = MealsHelper.service.getMealsByCategory("Seafood").meals
+            }catch (e: Exception){
+                Log.e(TAG, "onViewCreated: ${e.message}",e)
+            }
+
+        }
+        recyclerView = view.findViewById(R.id.homeRecycler)
+
+        Log.i(TAG, "onViewCreated: 2")
+        lifecycleScope.launch(Dispatchers.IO){
+            Log.i(TAG, "onViewCreated: 3")
+
+            Log.i(TAG, "onViewCreated: 4")
+
 
             withContext(Dispatchers.Main){
+                Log.i(TAG, "onViewCreated: 5")
                 adapter = MealAdapter(meals){ meal ->
-                     onMealClick(meal)
+                    onMealClick(meal)
                 }
+                Log.i(TAG, "onViewCreated: 6")
                 recyclerView.adapter = adapter
                 recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                Log.i(TAG, "onViewCreated: 7")
                 // Show the popup
                 if(firstTimeAtHome) {
                     firstTimeAtHome = false

@@ -22,11 +22,18 @@ interface PlannedMealsDao {
     @Query("SELECT * FROM planned_meals WHERE mealDay = :day")
     suspend fun getPlannedMealsByDay(day: String): List<PlanMeal>
 
-    // get planned meals for a specific time
-    @Query("SELECT * FROM planned_meals WHERE mealTime = :time")
-    suspend fun getPlannedMealsByTime(time: String): List<PlanMeal>
+    // remove plan meal by day and meal name
+    @Query("DELETE FROM planned_meals WHERE mealDay = :day AND idMeal = :mealId")
+    suspend fun removePlanByDayAndMealId(day: String, mealId: String): Int
 
-    // get planned meals for a specific day and time
-    @Query("SELECT * FROM planned_meals WHERE mealDay = :day AND mealTime = :time")
-    suspend fun getPlannedMealsByDayAndTime(day: String, time: String): List<PlanMeal>
+    // get all days that the meal is planned in
+    @Query("SELECT mealDay FROM planned_meals WHERE idMeal = :mealId")
+    suspend fun getDaysByMealId(mealId: String): List<String>
+
+
+
+
+
+
+
 }
