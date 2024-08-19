@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
     lateinit var adapter: MealAdapter
     lateinit var recyclerView: RecyclerView
     lateinit var areas: Areas
-    lateinit var meals: List<Meal>
 
     private val TAG = "HomeFragment"
 
@@ -53,19 +52,13 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.i(TAG, "onViewCreated: 1")
 
-        lifecycleScope.launch(Dispatchers.IO){
-            try {
-                areas = MealsHelper.service.getAllAreas()
-                meals = MealsHelper.service.getMealsByCategory("Seafood").meals
-            }catch (e: Exception){
-                Log.e(TAG, "onViewCreated: ${e.message}",e)
-            }
-
-        }
         recyclerView = view.findViewById(R.id.homeRecycler)
 
         Log.i(TAG, "onViewCreated: 2")
         lifecycleScope.launch(Dispatchers.IO){
+
+            areas = MealsHelper.service.getAllAreas()
+            val meals = MealsHelper.service.getMealsByCategory("Seafood").meals
             Log.i(TAG, "onViewCreated: 3")
 
             Log.i(TAG, "onViewCreated: 4")

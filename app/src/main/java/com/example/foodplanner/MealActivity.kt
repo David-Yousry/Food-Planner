@@ -113,9 +113,6 @@ class MealActivity : AppCompatActivity() {
             val dialog = PlanMealDialogFragment(meals.meals[0]){ day->
                 lifecycleScope.launch(Dispatchers.IO){
                     plannedMealsDao.addToPlan(PlanMeal(meals.meals[0].idMeal, day, meals.meals[0].strMeal, meals.meals[0].strMealThumb))
-                    withContext(Dispatchers.Main){
-                        Toast.makeText(this@MealActivity, "Meal planned for $it", Toast.LENGTH_SHORT).show()
-                    }
                 }
             }
             dialog.show(supportFragmentManager, "PlanMealDialog")

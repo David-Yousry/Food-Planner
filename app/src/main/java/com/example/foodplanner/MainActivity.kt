@@ -32,17 +32,17 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
             insets
         }
 
-//        val replaceFrag = intent.getStringExtra("replaceFrag")
-//
-//        if(replaceFrag != null) {
-//            if (replaceFrag == "MyPlans") {
-//                Log.i(TAG, "onCreate: $replaceFrag")
-//                replaceFragment(WeekMealsFragment())
-//            }
-//        }
-//        else{
-//            replaceFragment(HomeFragment())
-//        }
+        val replaceFrag = intent.getStringExtra("replaceFrag")
+
+        if(replaceFrag != null) {
+            if (replaceFrag == "MyPlans") {
+                Log.i(TAG, "onCreate: $replaceFrag")
+                replaceFragment(WeekMealsFragment())
+            }
+        }
+        else{
+            replaceFragment(HomeFragment())
+        }
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {

@@ -20,48 +20,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Sunday" />
+        android:text="Sunday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/mondayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Monday" />
+        android:text="Monday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/tuesdayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Tuesday" />
+        android:text="Tuesday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/wednesdayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Wednesday" />
+        android:text="Wednesday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/thursdayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Thursday" />
+        android:text="Thursday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/fridayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Friday" />
+        android:text="Friday"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/saturdayButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/textColor"
-        android:text="Saturday" />
+        android:text="Saturday"
+        android:textColor="@color/white" />
 
 </LinearLayout>
