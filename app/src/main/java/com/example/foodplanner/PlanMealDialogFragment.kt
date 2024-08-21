@@ -1,7 +1,7 @@
 package com.example.foodplanner
 
-import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
-import com.example.foodplanner.db.PlanMealsDatabase
+import com.example.foodplanner.db.MealsDatabase
 import com.example.foodplanner.models.Meal
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,26 +19,33 @@ import kotlinx.coroutines.withContext
 class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected: (String) -> Unit) : DialogFragment() {
 
     private lateinit var mealDays: List<String>
+
+    private val TAG = "PlanMealDialogFragment"
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.dialog_plan_meal, container, false)
-        val plannedMealsDao = PlanMealsDatabase.getInstance(requireContext()).plannedMealsDao()
+        val mealsDao = MealsDatabase.getInstance(requireContext()).mealsDao()
 
         lifecycleScope.launch(Dispatchers.IO){
-            mealDays = plannedMealsDao.getDaysByMealId(meal.idMeal)
+            if(meal.mealPlans == null){
+                meal.mealPlans = "Sunday0,Monday0,Tuesday0,Wednesday0,Thursday0,Friday0,Saturday0"
+                mealsDao.insertMeal(meal)
+            }
+            mealDays = meal.mealPlans.split(",")
             withContext(Dispatchers.Main){
                 for (day in mealDays){
                     when(day){
                         // change each button color to forest green if the meal is already planned for that day
-                        "Sunday" -> view.findViewById<Button>(R.id.sundayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Monday" -> view.findViewById<Button>(R.id.mondayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Tuesday" -> view.findViewById<Button>(R.id.tuesdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Wednesday" -> view.findViewById<Button>(R.id.wednesdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Thursday" -> view.findViewById<Button>(R.id.thursdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Friday" -> view.findViewById<Button>(R.id.fridayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
-                        "Saturday" -> view.findViewById<Button>(R.id.saturdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Sunday1" -> view.findViewById<Button>(R.id.sundayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Monday1" -> view.findViewById<Button>(R.id.mondayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Tuesday1" -> view.findViewById<Button>(R.id.tuesdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Wednesday1" -> view.findViewById<Button>(R.id.wednesdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Thursday1" -> view.findViewById<Button>(R.id.thursdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Friday1" -> view.findViewById<Button>(R.id.fridayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
+                        "Saturday1" -> view.findViewById<Button>(R.id.saturdayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.forest_green))
 
                     }
                 }
@@ -48,12 +55,16 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
         view.findViewById<Button>(R.id.sundayButton).setOnClickListener {
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Sunday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Sunday", meal.idMeal)
+
+                if(meal.mealPlans.contains("Sunday1")) {
+                    Log.i(TAG, "onCreateView: YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
+                    meal.mealPlans = meal.mealPlans.replace("Sunday1", "Sunday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
                     onDaySelected("Sunday")
+                    Log.i(TAG, "onCreateView: NAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
                     isNowPlanned = true
                 }
                 withContext(Dispatchers.Main){
@@ -63,7 +74,7 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
                     }
                     else{
                         view.findViewById<Button>(R.id.sundayButton).setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.textColor))
-                        Toast.makeText(requireContext(), "Meal plan removed for sunday", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Meal plan removed for Sunday", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
@@ -71,11 +82,12 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
             dismiss()
         }
         view.findViewById<Button>(R.id.mondayButton).setOnClickListener {
-
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Monday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Monday", meal.idMeal)
+
+                if(meal.mealPlans.contains("Monday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Monday1", "Monday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
@@ -93,13 +105,18 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
                     }
                 }
             }
+
             dismiss()
+
+
         }
         view.findViewById<Button>(R.id.tuesdayButton).setOnClickListener {
+
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Tuesday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Tuesday", meal.idMeal)
+                if(meal.mealPlans.contains("Tuesday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Tuesday1", "Tuesday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
@@ -118,12 +135,14 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
                 }
             }
             dismiss()
+
         }
         view.findViewById<Button>(R.id.wednesdayButton).setOnClickListener {
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Wednesday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Wednesday", meal.idMeal)
+                if(meal.mealPlans.contains("Wednesday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Wednesday1", "Wednesday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
@@ -146,8 +165,9 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
         view.findViewById<Button>(R.id.thursdayButton).setOnClickListener {
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Thursday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Thursday", meal.idMeal)
+                if(meal.mealPlans.contains("Thursday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Thursday1", "Thursday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
@@ -170,8 +190,9 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
         view.findViewById<Button>(R.id.fridayButton).setOnClickListener {
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Friday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Friday", meal.idMeal)
+                if(meal.mealPlans.contains("Friday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Friday1", "Friday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
@@ -194,8 +215,10 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
         view.findViewById<Button>(R.id.saturdayButton).setOnClickListener {
             var isNowPlanned = false
             lifecycleScope.launch(Dispatchers.IO){
-                if(mealDays.contains("Saturday")) {
-                    plannedMealsDao.removePlanByDayAndMealId("Saturday", meal.idMeal)
+
+                if(meal.mealPlans.contains("Saturday1")) {
+                    meal.mealPlans = meal.mealPlans.replace("Saturday1", "Saturday0")
+                    mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {

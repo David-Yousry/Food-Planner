@@ -3,12 +3,14 @@
 
     <item android:title="Home"
         android:id="@+id/homeBtn"
-        android:icon="@drawable/home_icon"/>
+        android:icon="@drawable/home_icon"
+        />
     <item android:title="Search"
         android:id="@+id/searchBtn"
         android:icon="@drawable/search_icon"/>
-    <item android:title="Week Meals"
+    <item
         android:id="@+id/weekMealsBtn"
-        android:icon="@drawable/calendar_icon"/>
+        android:icon="@drawable/calendar_icon"
+        android:title="Week Plan" />
 
 </menu>

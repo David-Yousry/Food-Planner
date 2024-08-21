@@ -2,24 +2,15 @@ package com.example.foodplanner
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner.db.MealsDatabase
-import com.example.foodplanner.db.PlanMealsDatabase
 import com.example.foodplanner.models.Meal
-import com.example.foodplanner.models.PlanMeal
-import com.example.foodplanner.network.MealsHelper
 import com.example.foodplanner.views.adapters.SmallMealCardAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -51,15 +42,15 @@ class WeekMealsFragment : Fragment() {
 
 
         lifecycleScope.launch(Dispatchers.IO){
-            val planMealsDao = PlanMealsDatabase.getInstance(requireContext()).plannedMealsDao()
+            val mealsDao = MealsDatabase.getInstance(requireContext()).mealsDao()
             val planMeals = mapOf(
-                "Sunday" to planMealsDao.getPlannedMealsByDay("Sunday"),
-                "Monday" to planMealsDao.getPlannedMealsByDay("Monday"),
-                "Tuesday" to planMealsDao.getPlannedMealsByDay("Tuesday"),
-                "Wednesday" to planMealsDao.getPlannedMealsByDay("Wednesday"),
-                "Thursday" to planMealsDao.getPlannedMealsByDay("Thursday"),
-                "Friday" to planMealsDao.getPlannedMealsByDay("Friday"),
-                "Saturday" to planMealsDao.getPlannedMealsByDay("Saturday")
+                "Sunday" to mealsDao.getPlanMealsByDay("Sunday"),
+                "Monday" to mealsDao.getPlanMealsByDay("Monday"),
+                "Tuesday" to mealsDao.getPlanMealsByDay("Tuesday"),
+                "Wednesday" to mealsDao.getPlanMealsByDay("Wednesday"),
+                "Thursday" to mealsDao.getPlanMealsByDay("Thursday"),
+                "Friday" to mealsDao.getPlanMealsByDay("Friday"),
+                "Saturday" to mealsDao.getPlanMealsByDay("Saturday")
             )
             withContext(Dispatchers.Main){
 
@@ -102,10 +93,9 @@ class WeekMealsFragment : Fragment() {
         return view
     }
 
-    private fun onMealClick(meal: PlanMeal): Int {
+    private fun onMealClick(meal: Meal): Int {
         val intent = Intent(requireContext(), MealActivity::class.java)
-        intent.putExtra("mealTitle", meal.strMeal)
-        intent.putExtra("intentFrom","Plan")
+        intent.putExtra("meal", meal)
         startActivity(intent)
         return 0
     }

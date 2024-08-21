@@ -30,7 +30,8 @@ class HomeFragment : Fragment() {
 
     lateinit var adapter: MealAdapter
     lateinit var recyclerView: RecyclerView
-    lateinit var areas: Areas
+//    lateinit var areas: Areas
+//    lateinit var meals : List<Meal>
 
     private val TAG = "HomeFragment"
 
@@ -50,35 +51,38 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.i(TAG, "onViewCreated: 1")
 
         recyclerView = view.findViewById(R.id.homeRecycler)
 
-        Log.i(TAG, "onViewCreated: 2")
         lifecycleScope.launch(Dispatchers.IO){
 
-            areas = MealsHelper.service.getAllAreas()
-            val meals = MealsHelper.service.getMealsByCategory("Seafood").meals
-            Log.i(TAG, "onViewCreated: 3")
-
-            Log.i(TAG, "onViewCreated: 4")
+            try {
+                val areas = MealsHelper.service.getAllAreas()
+                val meals = MealsHelper.service.getMealsByCategory("Seafood").meals
 
 
-            withContext(Dispatchers.Main){
-                Log.i(TAG, "onViewCreated: 5")
-                adapter = MealAdapter(meals){ meal ->
-                    onMealClick(meal)
+                withContext(Dispatchers.Main){
+                    adapter = MealAdapter(meals){ meal ->
+                        onMealClick(meal)
+                    }
+
+                    recyclerView.adapter = adapter
+                    recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                    // Show the popup
+                    if(firstTimeAtHome) {
+                        firstTimeAtHome = false
+                        showMealOfTheDayPopup(meals.random())
+                    }
                 }
-                Log.i(TAG, "onViewCreated: 6")
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(requireContext())
-                Log.i(TAG, "onViewCreated: 7")
-                // Show the popup
-                if(firstTimeAtHome) {
-                    firstTimeAtHome = false
-                    showMealOfTheDayPopup(meals.random())
-                }
+
+
+            }catch (e: Exception){
+                Log.e(TAG, "Error: ${e.message}")
             }
+
+
+
+
         }
 
 
@@ -112,10 +116,13 @@ class HomeFragment : Fragment() {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
     }
 
-    private fun onMealClick(meal: Meal): Int {
+    private fun onMealClick(mealHeader: Meal): Int {
+
         val intent = Intent(requireContext(), MealActivity::class.java)
-        intent.putExtra("mealTitle", meal.strMeal)
+        intent.putExtra("mealName", mealHeader.strMeal)
+        intent.putExtra("from", "home")
         startActivity(intent)
+
         return 0
     }
 

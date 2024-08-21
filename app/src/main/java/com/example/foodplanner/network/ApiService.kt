@@ -2,9 +2,7 @@ package com.example.foodplanner.network
 
 import com.example.foodplanner.models.Areas
 import com.example.foodplanner.models.Categories
-import com.example.foodplanner.models.Meal
 import com.example.foodplanner.models.Meals
-import com.example.foodplanner.models.Plans
 import retrofit2.http.GET
 import retrofit2.http.Query
 
@@ -19,9 +17,9 @@ interface ApiService {
     suspend fun getMealsByArea(@Query("a") area: String): Meals
     @GET("search.php")
     suspend fun getMealByName(@Query("s") name: String): Meals
-//    //get meal by id
-//    @GET("lookup.php")
-//    suspend fun getMealById(@Query("i") id: String): Meals
+    //get meal by id
+    @GET("lookup.php")
+    suspend fun getMealById(@Query("i") id: String): Meals
 
 
 

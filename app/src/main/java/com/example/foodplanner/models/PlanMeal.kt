@@ -1,22 +1,22 @@
 package com.example.foodplanner.models
-
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-
-data class Plans (
-    var plans: List<PlanMeal>
-)
-
-
-@Entity(tableName = "planned_meals")
-data class PlanMeal(
-
-    var idMeal: String,
-    var mealDay : String,
-    var strMeal: String,
-    var strMealThumb: String,
-
+//
+//import androidx.room.Entity
+//import androidx.room.PrimaryKey
+//
+//
+//data class Plans (
+//    var plans: List<PlanMeal>
+//)
+//
+//
+//@Entity(tableName = "planned_meals")
+//data class PlanMeal(
+//
+//    var idMeal: String,
+//    var mealDay : String,
+//    var strMeal: String,
+//    var strMealThumb: String,
+//
 //    var strCategory: String,
 //    var strArea: String,
 //    var strInstructions: String,
@@ -44,12 +44,11 @@ data class PlanMeal(
 //    var strIngredient18: String,
 //    var strIngredient19: String,
 //    var strIngredient20: String,
-//
 //    var isFav: Boolean,
-//
-    @PrimaryKey
-    var mealString : String = idMeal+mealDay,
-){
+////
+//    @PrimaryKey
+//    var mealString : String = idMeal+mealDay,
+//){
 //    fun getIngredients(): String {
 //        return listOf(
 //            strIngredient1, strIngredient2, strIngredient3, strIngredient4, strIngredient5,
@@ -58,6 +57,6 @@ data class PlanMeal(
 //            strIngredient16, strIngredient17, strIngredient18, strIngredient19, strIngredient20
 //        ).filterNotNull().filter { it.isNotEmpty() }.joinToString("\n")
 //    }
-}
-
-
+//}
+//
+//

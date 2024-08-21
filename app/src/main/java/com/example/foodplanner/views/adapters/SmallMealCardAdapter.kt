@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.foodplanner.R
 import com.example.foodplanner.models.Meal
-import com.example.foodplanner.models.PlanMeal
 
-class SmallMealCardAdapter(private val meals: List<PlanMeal>,  val onClick: (PlanMeal) -> Int) : RecyclerView.Adapter<SmallMealCardAdapter.SmallMealCardViewHolder>() {
+class SmallMealCardAdapter(private val meals: List<Meal>,  val onClick: (Meal) -> Int) : RecyclerView.Adapter<SmallMealCardAdapter.SmallMealCardViewHolder>() {
 
     class SmallMealCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val mealImage: ImageView = itemView.findViewById(R.id.mealImage)

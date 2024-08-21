@@ -4,12 +4,15 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.foodplanner.favoriteFeature.FavMealDao
+import androidx.room.TypeConverters
+import com.example.foodplanner.mealsDao.MealsDao
 import com.example.foodplanner.models.Meal
+import com.example.foodplanner.utils.Converters
 
 @Database(entities = [Meal::class], version = 1)
+//@TypeConverters(Converters::class)
 abstract class MealsDatabase: RoomDatabase() {
-    abstract fun mealsDao(): FavMealDao
+    abstract fun mealsDao(): MealsDao
     companion object{
         @Volatile
         private var INSTANCE: MealsDatabase? = null
