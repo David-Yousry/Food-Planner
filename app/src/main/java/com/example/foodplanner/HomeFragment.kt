@@ -117,7 +117,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun onMealClick(mealHeader: Meal): Int {
-
         val intent = Intent(requireContext(), MealActivity::class.java)
         intent.putExtra("mealName", mealHeader.strMeal)
         intent.putExtra("from", "home")

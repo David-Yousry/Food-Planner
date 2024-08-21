@@ -19,7 +19,7 @@
             android:name=".SignInActivity"
             android:exported="false" />
         <activity
-            android:name=".PlannedMealsActivity"
+            android:name=".SearchMealsActivity"
             android:exported="false" />
         <activity
             android:name=".FavoriteMealsActivity"

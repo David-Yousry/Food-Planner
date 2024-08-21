@@ -3,6 +3,21 @@
     <style name="Base.Theme.FoodPlanner" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Secondary branding color. (Progress bar color)-->
+        <item name="colorSecondary">@color/backgroundColor</item>
+        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorOnSecondary">@color/primaryColor</item>
+
+        <!-- Background color. -->
+        <item name="android:colorBackground">@color/white</item>
+
+        <!-- Surface color. -->
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/white</item>
+
+
+
+
     </style>
 
     <style name="Theme.FoodPlanner" parent="Base.Theme.FoodPlanner" />

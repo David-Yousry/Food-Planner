@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
-    tools:context=".PlannedMealsActivity">
+    tools:context=".SearchMealsActivity">
 
     <ImageButton
         android:id="@+id/backButton"
@@ -20,20 +20,20 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/planMealsRecycler"
+        android:id="@+id/searchMealsRecycler"
         android:layout_width="409dp"
         android:layout_height="match_parent"
         android:layout_marginStart="1dp"
         android:layout_marginTop="136dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/searchMealsTextView" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/searchMealsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Plan meals"
+        android:text="Meals"
         android:textColor="@color/primaryColor"
         android:textSize="20sp"
         android:textStyle="bold"

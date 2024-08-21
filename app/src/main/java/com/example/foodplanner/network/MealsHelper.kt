@@ -9,9 +9,5 @@ object MealsHelper {
         .baseUrl(BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-
-
-
-
     val service = client.create(ApiService::class.java)
 }

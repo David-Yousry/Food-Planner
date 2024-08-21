@@ -10,6 +10,11 @@ import com.bumptech.glide.Glide
 import com.example.foodplanner.R
 import com.example.foodplanner.models.Meal
 
+
+
+
+
+
 class MealAdapter(val meals: List<Meal>, val onClick: (Meal) -> Int) : RecyclerView.Adapter<MealAdapter.MealViewHolder>() {
 
     class MealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -19,7 +24,7 @@ class MealAdapter(val meals: List<Meal>, val onClick: (Meal) -> Int) : RecyclerV
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_meal_card, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.fragment_meal_card_mid, parent, false)
         return MealViewHolder(view)
     }
 
