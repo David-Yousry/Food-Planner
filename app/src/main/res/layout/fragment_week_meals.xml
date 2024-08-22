@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Sunday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -18,7 +19,6 @@
             android:paddingStart="15dp"
             android:paddingBottom="20dp">
 
-            
             <TextView
                 android:id="@+id/sundayText"
                 android:layout_width="wrap_content"
@@ -38,11 +38,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/sundayText"  />
-            
+                app:layout_constraintTop_toBottomOf="@+id/sundayText" />
 
+            <TextView
+                android:id="@+id/noPlanSunday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Sunday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/sundayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Monday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,10 +80,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mondayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/mondayText" />
 
+            <TextView
+                android:id="@+id/noPlanMonday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Monday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mondayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Tuesday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -101,10 +122,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tuesdayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/tuesdayText" />
 
+            <TextView
+                android:id="@+id/noPlanTuesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Tuesday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tuesdayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Wednesday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -132,10 +164,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/wednesdayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/wednesdayText" />
 
+            <TextView
+                android:id="@+id/noPlanWednesday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Wednesday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/wednesdayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Thursday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -163,10 +206,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/thursdayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/thursdayText" />
 
+            <TextView
+                android:id="@+id/noPlanThursday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Thursday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/thursdayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Friday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -194,10 +248,21 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fridayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/fridayText" />
 
+            <TextView
+                android:id="@+id/noPlanFriday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Friday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/fridayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!-- Saturday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -225,8 +290,18 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/saturdayText"  />
+                app:layout_constraintTop_toBottomOf="@+id/saturdayText" />
 
+            <TextView
+                android:id="@+id/noPlanSaturday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No plans for Saturday"
+                android:textColor="@color/primaryColor"
+                android:textSize="20sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/saturdayText" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>

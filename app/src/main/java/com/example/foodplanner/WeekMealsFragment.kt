@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -32,6 +33,14 @@ class WeekMealsFragment : Fragment() {
         val fridayRecycler = view.findViewById<RecyclerView>(R.id.planRecyclerFriday)
         val saturdayRecycler = view.findViewById<RecyclerView>(R.id.planRecyclerSaturday)
 
+        val noPlanSunday = view.findViewById<TextView>(R.id.noPlanSunday)
+        val noPlanMonday = view.findViewById<TextView>(R.id.noPlanMonday)
+        val noPlanTuesday = view.findViewById<TextView>(R.id.noPlanTuesday)
+        val noPlanWednesday = view.findViewById<TextView>(R.id.noPlanWednesday)
+        val noPlanThursday = view.findViewById<TextView>(R.id.noPlanThursday)
+        val noPlanFriday = view.findViewById<TextView>(R.id.noPlanFriday)
+        val noPlanSaturday = view.findViewById<TextView>(R.id.noPlanSaturday)
+
         sundayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         mondayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         tuesdayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -54,32 +63,77 @@ class WeekMealsFragment : Fragment() {
             )
             withContext(Dispatchers.Main){
 
-                sundayRecycler.adapter = SmallMealCardAdapter(planMeals["Sunday"]!!){ meal ->
-                    onMealClick(meal)
+                if(planMeals["Sunday"]!!.isEmpty()){
+                    sundayRecycler.visibility = View.GONE
+                    noPlanSunday.visibility = View.VISIBLE
+                }
+                else {
+                    sundayRecycler.adapter = SmallMealCardAdapter(planMeals["Sunday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                mondayRecycler.adapter = SmallMealCardAdapter(planMeals["Monday"]!!){ meal ->
-                    onMealClick(meal)
+                if(planMeals["Monday"]!!.isEmpty()){
+                    mondayRecycler.visibility = View.GONE
+                    noPlanMonday.visibility = View.VISIBLE
+                }
+                else {
+                    mondayRecycler.adapter = SmallMealCardAdapter(planMeals["Monday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                tuesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Tuesday"]!!){ meal ->
-                    onMealClick(meal)
+
+                if(planMeals["Tuesday"]!!.isEmpty()){
+                    tuesdayRecycler.visibility = View.GONE
+                    noPlanTuesday.visibility = View.VISIBLE
+                }
+                else {
+                    tuesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Tuesday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                wednesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Wednesday"]!!){ meal ->
-                    onMealClick(meal)
+                if(planMeals["Wednesday"]!!.isEmpty()){
+                    wednesdayRecycler.visibility = View.GONE
+                    noPlanWednesday.visibility = View.VISIBLE
+                }
+                else {
+                    wednesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Wednesday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                thursdayRecycler.adapter = SmallMealCardAdapter(planMeals["Thursday"]!!){ meal ->
-                    onMealClick(meal)
+                if(planMeals["Thursday"]!!.isEmpty()){
+                    thursdayRecycler.visibility = View.GONE
+                    noPlanThursday.visibility = View.VISIBLE
+                }
+                else {
+                    thursdayRecycler.adapter = SmallMealCardAdapter(planMeals["Thursday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                fridayRecycler.adapter = SmallMealCardAdapter(planMeals["Friday"]!!){ meal ->
-                    onMealClick(meal)
+
+                if(planMeals["Friday"]!!.isEmpty()){
+                    fridayRecycler.visibility = View.GONE
+                    noPlanFriday.visibility = View.VISIBLE
+                }
+                else {
+                    fridayRecycler.adapter = SmallMealCardAdapter(planMeals["Friday"]!!) {
+                        onMealClick(it)
+                    }
                 }
 
-                saturdayRecycler.adapter = SmallMealCardAdapter(planMeals["Saturday"]!!){ meal ->
-                    onMealClick(meal)
+
+                if(planMeals["Saturday"]!!.isEmpty()){
+                    saturdayRecycler.visibility = View.GONE
+                    noPlanSaturday.visibility = View.VISIBLE
+                }
+                else {
+                    saturdayRecycler.adapter =SmallMealCardAdapter(planMeals["Saturday"]!!) {
+                            onMealClick(it)
+                    }
                 }
 
 

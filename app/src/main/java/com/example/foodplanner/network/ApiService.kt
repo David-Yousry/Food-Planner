@@ -38,6 +38,10 @@ interface ApiService {
     @GET("list.php?i=list")
     suspend fun getIngredients(): Ingredients
 
+    //get random meal
+    @GET("random.php")
+    suspend fun getRandomMeal(): Meals
+
 
     //www.themealdb.com/images/ingredients/Lime.png
     //www.themealdb.com/api/json/v1/1/filter.php?c=beef
