@@ -107,7 +107,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginBottom="10dp"
                 android:paddingBottom="8dp"
-                android:text="Food From Your Area"
+                android:text="Meals From Your Area"
                 android:textColor="@color/primaryColor"
                 android:textSize="26sp"
                 android:textStyle="bold" />

@@ -116,7 +116,7 @@ class HomeFragment : Fragment() {
 
 
         }catch (e: Exception){
-            Log.e(TAG, "onViewCreated: ", e)
+            Log.e(TAG, "onViewCreated: ${e.message}")
         }
     }
 
