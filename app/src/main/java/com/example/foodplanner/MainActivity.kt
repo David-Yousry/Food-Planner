@@ -48,6 +48,8 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
             replaceFragment(HomeFragment())
         }
 
+        val myAuth = FirebaseAuth.getInstance()
+
 
         binding.bottomNavigationView.setOnItemSelectedListener {
 
@@ -72,8 +74,14 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
         }
         profileBtn = findViewById(R.id.profileBtn)
         profileBtn.setOnClickListener {
-            val profileIntent = Intent(this, UserProfileActivity::class.java)
-            startActivity(profileIntent)
+            if(myAuth.currentUser == null){
+                val profileIntent = Intent(this, GuestProfileActivity::class.java)
+                startActivity(profileIntent)
+            }
+            else{
+                val profileIntent = Intent(this, UserProfileActivity::class.java)
+                startActivity(profileIntent)
+            }
         }
     }
 

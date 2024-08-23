@@ -18,6 +18,7 @@ import com.example.foodplanner.db.MealsDatabase
 import com.example.foodplanner.models.Meal
 import com.example.foodplanner.network.MealsHelper
 import com.example.foodplanner.utils.Converters
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -45,6 +46,9 @@ class MealActivity : AppCompatActivity() {
 
         val loadingScreen = findViewById<View>(R.id.loadingScreen)
         val mainContent = findViewById<View>(R.id.mainContent)
+
+        val myAuth = FirebaseAuth.getInstance()
+
 
 
         /// ###########################################
@@ -95,6 +99,10 @@ class MealActivity : AppCompatActivity() {
 
                     // Add to Favorite button handling
                     addToFavBtn.setOnClickListener {
+                        if (myAuth.currentUser == null) {
+                            Toast.makeText(this@MealActivity, "Please sign in to add meal to favorites", Toast.LENGTH_SHORT).show()
+                            return@setOnClickListener
+                        }
                         lifecycleScope.launch(Dispatchers.IO) {
 
                             if(meal.mealPlans == null){
@@ -120,6 +128,10 @@ class MealActivity : AppCompatActivity() {
                     }
 
                     planMealBtn.setOnClickListener {
+                        if (myAuth.currentUser == null) {
+                            Toast.makeText(this@MealActivity, "Please sign in to plan meal", Toast.LENGTH_SHORT).show()
+                            return@setOnClickListener
+                        }
                         val dialog = PlanMealDialogFragment(meal) { day ->
                             lifecycleScope.launch(Dispatchers.IO) {
                                 meal.mealPlans = meal.mealPlans.replace("${day}0", "${day}1")

@@ -8,16 +8,52 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="16dp">
 
         <!-- Sunday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loginToPlanCons"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/loginPrompt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="94dp"
+                android:text="Please login to plan meals"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/loginToPlanBtn"
+                android:layout_width="134dp"
+                android:layout_height="49dp"
+                android:layout_marginStart="120dp"
+                android:layout_marginTop="84dp"
+                android:backgroundTint="@color/bottom_nav_item_color"
+                android:text="Login"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/loginPrompt" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sundayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
-            android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/sundayText"
@@ -33,7 +69,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerSunday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -54,12 +90,14 @@
 
         <!-- Monday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/mondayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/mondayText"
@@ -75,7 +113,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerMonday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -96,12 +134,14 @@
 
         <!-- Tuesday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tuesdayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tuesdayText"
@@ -117,7 +157,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerTuesday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -138,12 +178,14 @@
 
         <!-- Wednesday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/wednesdayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/wednesdayText"
@@ -159,7 +201,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerWednesday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -180,12 +222,14 @@
 
         <!-- Thursday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/thursdayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/thursdayText"
@@ -201,7 +245,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerThursday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -222,12 +266,14 @@
 
         <!-- Friday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fridayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/fridayText"
@@ -243,7 +289,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerFriday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"
@@ -264,12 +310,14 @@
 
         <!-- Saturday Section -->
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/saturdayCons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
             android:background="@drawable/meal_card_background"
             android:paddingStart="15dp"
-            android:paddingBottom="20dp">
+            android:paddingBottom="20dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/saturdayText"
@@ -285,7 +333,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/planRecyclerSaturday"
-                android:layout_width="362dp"
+                android:layout_width="330dp"
                 android:layout_height="180dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="12dp"

@@ -5,7 +5,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.foodplanner.db.MealsDatabase
 import com.example.foodplanner.models.Meal
 import com.example.foodplanner.views.adapters.SmallMealCardAdapter
+import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -24,6 +27,17 @@ class WeekMealsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_week_meals, container, false)
+
+        val loginCons = view.findViewById<ConstraintLayout>(R.id.loginToPlanCons)
+        val sundayCons = view.findViewById<ConstraintLayout>(R.id.sundayCons)
+        val mondayCons = view.findViewById<ConstraintLayout>(R.id.mondayCons)
+        val tuesdayCons = view.findViewById<ConstraintLayout>(R.id.tuesdayCons)
+        val wednesdayCons = view.findViewById<ConstraintLayout>(R.id.wednesdayCons)
+        val thursdayCons = view.findViewById<ConstraintLayout>(R.id.thursdayCons)
+        val fridayCons = view.findViewById<ConstraintLayout>(R.id.fridayCons)
+        val saturdayCons = view.findViewById<ConstraintLayout>(R.id.saturdayCons)
+
+
 
         val sundayRecycler = view.findViewById<RecyclerView>(R.id.planRecyclerSunday)
         val mondayRecycler = view.findViewById<RecyclerView>(R.id.planRecyclerMonday)
@@ -41,6 +55,8 @@ class WeekMealsFragment : Fragment() {
         val noPlanFriday = view.findViewById<TextView>(R.id.noPlanFriday)
         val noPlanSaturday = view.findViewById<TextView>(R.id.noPlanSaturday)
 
+        val loginToPlanBtn = view.findViewById<Button>(R.id.loginToPlanBtn)
+
         sundayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         mondayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         tuesdayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -48,6 +64,26 @@ class WeekMealsFragment : Fragment() {
         thursdayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         fridayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         saturdayRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        loginToPlanBtn.setOnClickListener {
+            val intent = Intent(requireContext(), SignInActivity::class.java)
+            startActivity(intent)
+        }
+
+
+        val myAuth = FirebaseAuth.getInstance()
+
+        if(myAuth.currentUser == null){
+            loginCons.visibility = View.VISIBLE
+        }else{
+            sundayCons.visibility = View.VISIBLE
+            mondayCons.visibility = View.VISIBLE
+            tuesdayCons.visibility = View.VISIBLE
+            wednesdayCons.visibility = View.VISIBLE
+            thursdayCons.visibility = View.VISIBLE
+            fridayCons.visibility = View.VISIBLE
+            saturdayCons.visibility = View.VISIBLE
+        }
 
 
         lifecycleScope.launch(Dispatchers.IO){

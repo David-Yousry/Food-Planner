@@ -21,6 +21,8 @@ class SignInActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
     private lateinit var btnSignIn: Button
+    private lateinit var guestBtn : Button
+
     companion object {
         private const val RC_SIGN_IN = 9001
     }
@@ -30,12 +32,20 @@ class SignInActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_sign_in)
         btnSignIn = findViewById(R.id.signInButton)
+        guestBtn = findViewById(R.id.guestButton)
 
         auth = Firebase.auth
 
         btnSignIn.setOnClickListener {
             signIn()
         }
+
+        guestBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
     }
 
     override fun onStart() {
