@@ -16,7 +16,7 @@
         android:theme="@style/Theme.FoodPlanner"
         tools:targetApi="31">
         <activity
-            android:name=".SignInActivity"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".SearchMealsActivity"
@@ -31,9 +31,9 @@
             android:name=".UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".SignInActivity"
             android:exported="true"
-            android:theme="@style/Theme.App.SplashScreen">
+            android:theme="@style/Theme.FoodPlanner">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

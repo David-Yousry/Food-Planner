@@ -3,6 +3,7 @@ package com.example.foodplanner
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
 import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -12,14 +13,18 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.foodplanner.databinding.ActivityMainBinding
 import com.example.foodplanner.utils.FragmentReplacer
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity(), FragmentReplacer {
 
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var profileBtn : ImageButton
-    private lateinit var auth : FirebaseAuth
+
 
     private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,21 +32,9 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
         Thread.sleep(2000)
         installSplashScreen()
 
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
-        auth = FirebaseAuth.getInstance()
-        val user = auth.currentUser
-
-        if(user != null){ // logged in
-
-        }
-        else{ // not logged in
-//            val loginIntent = Intent(this, SignInActivity::class.java)
-//            startActivity(loginIntent)
-        }
 
         val replaceFrag = intent.getStringExtra("replaceFrag")
 
