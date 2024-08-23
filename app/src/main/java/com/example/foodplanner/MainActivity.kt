@@ -11,6 +11,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.foodplanner.databinding.ActivityMainBinding
 import com.example.foodplanner.utils.FragmentReplacer
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -49,6 +50,14 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
         }
 
         val myAuth = FirebaseAuth.getInstance()
+        if(myAuth.currentUser != null){
+            val userPic = myAuth.currentUser!!.photoUrl
+            Glide.with(this)
+                .load(userPic)
+                .into(findViewById(R.id.profileBtn))
+
+        }
+
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -91,4 +100,15 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
         transaction.replace(R.id.mainFragment,fragment)
         transaction.commit()
     }
+
+
+//    private fun putImage(){
+//        val googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this)
+//        if (googleSignInAccount != null) {
+//            val photoUrl = googleSignInAccount.photoUrl
+//            Glide.with(this)
+//                .load(photoUrl)
+//                .into(findViewById(R.id.header_nav_image))
+//        }
+//    }
 }

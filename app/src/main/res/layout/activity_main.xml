@@ -32,7 +32,9 @@
                 android:background="@drawable/round_style"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/profile_icon" />
+                app:srcCompat="@drawable/profile_icon"
+                android:clipToOutline="true"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <FrameLayout

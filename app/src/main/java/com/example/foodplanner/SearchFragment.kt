@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,7 +35,7 @@ class SearchFragment : Fragment() {
     lateinit var catSearchAdapter : CategoriesSearchAdapter
     lateinit var ingredientsSearchAdapter : IngredientsSearchAdapter
     lateinit var areasSearchAdapter : AreaAdapter
-    lateinit var mealsAdapter: MealAdapter
+    lateinit var searchBar : SearchView
 
 
     override fun onCreateView(
@@ -52,6 +53,21 @@ class SearchFragment : Fragment() {
         areasFrame = view.findViewById(R.id.areaFrame)
         searchOptionText = view.findViewById(R.id.searchResultName)
         searchRecycler = view.findViewById(R.id.searchRecycler)
+        searchBar = view.findViewById(R.id.searchBar)
+
+
+        searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                val intent = Intent(requireContext(), SearchBarMealsActivity::class.java)
+                intent.putExtra("name", query)
+                startActivity(intent)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
 
         lifecycleScope.launch(Dispatchers.IO){
             try {
