@@ -5,7 +5,7 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <!-- Secondary branding color. (Progress bar color)-->
         <item name="colorSecondary">@color/backgroundColor</item>
-        <item name="colorSecondaryContainer">@color/white</item>
+        <item name="colorSecondaryContainer">@color/meal_background_color</item>
         <item name="colorOnSecondary">@color/primaryColor</item>
 
         <!-- Background color. -->
