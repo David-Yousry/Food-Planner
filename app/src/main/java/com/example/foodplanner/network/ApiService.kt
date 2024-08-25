@@ -9,8 +9,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
-//    @GET("list.php?c=list")
-//    suspend fun getAllCategories(): Categories
 
     @GET("list.php?a=list")
     suspend fun getAllAreas(): Areas
@@ -41,9 +39,4 @@ interface ApiService {
     //get random meal
     @GET("random.php")
     suspend fun getRandomMeal(): Meals
-
-
-    //www.themealdb.com/images/ingredients/Lime.png
-    //www.themealdb.com/api/json/v1/1/filter.php?c=beef
-    //www.themealdb.com/api/json/v1/1/search.php?s=Arrabiata
 }

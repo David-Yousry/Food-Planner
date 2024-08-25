@@ -17,7 +17,6 @@ import com.bumptech.glide.Glide
 import com.example.foodplanner.db.MealsDatabase
 import com.example.foodplanner.models.Meal
 import com.example.foodplanner.network.MealsHelper
-import com.example.foodplanner.utils.Converters
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

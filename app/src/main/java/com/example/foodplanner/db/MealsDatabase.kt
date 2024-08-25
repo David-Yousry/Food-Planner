@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.foodplanner.mealsDao.MealsDao
 import com.example.foodplanner.models.Meal
-import com.example.foodplanner.utils.Converters
 
 @Database(entities = [Meal::class], version = 1)
 //@TypeConverters(Converters::class)

@@ -3,8 +3,6 @@ package com.example.foodplanner.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverters
-import com.example.foodplanner.utils.Converters
 import java.io.Serializable
 
 data class Meals (
@@ -12,7 +10,6 @@ data class Meals (
 )
 
 @Entity(tableName = "meals")
-//@TypeConverters(Converters::class)
 data class Meal (
 
     @PrimaryKey
