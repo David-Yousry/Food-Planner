@@ -1,28 +1,31 @@
-package com.example.foodplanner
+package com.example.foodplanner.views.fragments
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodplanner.R
 import com.example.foodplanner.models.Area
 import com.example.foodplanner.models.Category
 import com.example.foodplanner.models.Ingredient
-import com.example.foodplanner.network.MealsHelper
+import com.example.foodplanner.viewModels.SearchFragmentViewModel
+import com.example.foodplanner.views.activities.SearchBarMealsActivity
+import com.example.foodplanner.views.activities.SearchMealsActivity
 import com.example.foodplanner.views.adapters.AreaAdapter
 import com.example.foodplanner.views.adapters.CategoriesSearchAdapter
 import com.example.foodplanner.views.adapters.IngredientsSearchAdapter
-import com.example.foodplanner.views.adapters.MealAdapter
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class SearchFragment : Fragment() {
@@ -36,6 +39,7 @@ class SearchFragment : Fragment() {
     lateinit var ingredientsSearchAdapter : IngredientsSearchAdapter
     lateinit var areasSearchAdapter : AreaAdapter
     lateinit var searchBar : SearchView
+    lateinit var viewModel : SearchFragmentViewModel
 
 
     override fun onCreateView(
@@ -56,10 +60,24 @@ class SearchFragment : Fragment() {
         searchBar = view.findViewById(R.id.searchBar)
 
 
+        // changing search bar colors ( cant be done from xml)
+        val searchAutoCompleteField = SearchView::class.java.getDeclaredField("mSearchSrcTextView")
+        searchAutoCompleteField.isAccessible = true
+        val searchAutoComplete = searchAutoCompleteField.get(searchBar) as EditText
+        searchAutoComplete.setHintTextColor(Color.GRAY)
+        searchAutoComplete.setTextColor(Color.BLACK)
+        val searchIcon = searchBar.findViewById<ImageView>(androidx.appcompat.R.id.search_mag_icon)
+        searchIcon.setColorFilter(Color.BLACK, PorterDuff.Mode.SRC_IN) // Replace BLUE with your desired color
+
+
+        setupViewModel()
+
+
         searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 val intent = Intent(requireContext(), SearchBarMealsActivity::class.java)
                 intent.putExtra("name", query)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                 startActivity(intent)
                 return true
             }
@@ -69,49 +87,58 @@ class SearchFragment : Fragment() {
             }
         })
 
-        lifecycleScope.launch(Dispatchers.IO){
-            try {
-                val categories = MealsHelper.service.getCategories()
-                val ingredients = MealsHelper.service.getIngredients()
-                val areas = MealsHelper.service.getAllAreas()
-                withContext(Dispatchers.Main){
-                    searchOptionText.text = "Categories"
-                    catSearchAdapter = CategoriesSearchAdapter(categories.categories){ category ->
+        try {
+
+            viewModel.getCategories()
+            viewModel.categories.observe(viewLifecycleOwner){ categories ->
+                catSearchAdapter = CategoriesSearchAdapter(categories){ category ->
+                    onCategoryClick(category)
+                }
+                searchRecycler.adapter = catSearchAdapter
+                searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            }
+
+            categoriesFrame.setOnClickListener {
+                searchOptionText.text = "Categories"
+                viewModel.getCategories()
+                viewModel.categories.observe(viewLifecycleOwner){ categories ->
+                    catSearchAdapter = CategoriesSearchAdapter(categories){ category ->
                         onCategoryClick(category)
                     }
                     searchRecycler.adapter = catSearchAdapter
                     searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    categoriesFrame.setOnClickListener {
-                        searchOptionText.text = "Categories"
-                        catSearchAdapter = CategoriesSearchAdapter(categories.categories){ category ->
-                            onCategoryClick(category)
-                        }
-                        searchRecycler.adapter = catSearchAdapter
-                        searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
-                    }
-                    ingredientsFrame.setOnClickListener {
-                        searchOptionText.text = "Ingredients"
-                        ingredientsSearchAdapter = IngredientsSearchAdapter(ingredients.ingredients){ ingredient ->
-                            onIngredientClick(ingredient)
-                        }
-                        searchRecycler.adapter = ingredientsSearchAdapter
-                        searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    }
-                    areasFrame.setOnClickListener {
-                        searchOptionText.text = "Areas"
-                        areasSearchAdapter = AreaAdapter(areas.areas){ area ->
-                            onAreaClick(area)
-                        }
-                        searchRecycler.adapter = areasSearchAdapter
-                        searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-                    }
                 }
+            }
+
+            ingredientsFrame.setOnClickListener {
+                searchOptionText.text = "Ingredients"
+                viewModel.getIngredients()
+                viewModel.ingredients.observe(viewLifecycleOwner){ ingredients ->
+                    ingredientsSearchAdapter = IngredientsSearchAdapter(ingredients){ ingredient ->
+                        onIngredientClick(ingredient)
+                    }
+                    searchRecycler.adapter = ingredientsSearchAdapter
+                    searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+            }
+
+            areasFrame.setOnClickListener {
+                searchOptionText.text = "Areas"
+                viewModel.getAreas()
+                viewModel.areas.observe(viewLifecycleOwner){ areas ->
+                    areasSearchAdapter = AreaAdapter(areas){ area ->
+                        onAreaClick(area)
+                    }
+                    searchRecycler.adapter = areasSearchAdapter
+                    searchRecycler.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                }
+             }
+
+
             } catch (e: Exception){
                 e.printStackTrace()
             }
         }
-    }
 
     private fun onCategoryClick(category: Category) : Int{
         val intent = Intent(requireContext(), SearchMealsActivity::class.java)
@@ -135,6 +162,10 @@ class SearchFragment : Fragment() {
         intent.putExtra("name",area.strArea)
         startActivity(intent)
         return 0
+    }
+
+    private fun setupViewModel(){
+        viewModel = ViewModelProvider(this).get(SearchFragmentViewModel::class.java)
     }
 
 }

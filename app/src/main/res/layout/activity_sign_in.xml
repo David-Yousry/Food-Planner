@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundColor"
     android:padding="16dp"
-    tools:context=".SignInActivity">
+    tools:context=".views.activities.SignInActivity">
 
     <Button
         android:id="@+id/signInButton"

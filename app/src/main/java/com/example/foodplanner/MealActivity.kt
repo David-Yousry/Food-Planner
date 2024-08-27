@@ -24,6 +24,13 @@ import kotlinx.coroutines.withContext
 
 
 
+
+
+
+
+// ############################################################ MVVM will be applied in the next version ######################################################
+
+
 class MealActivity : AppCompatActivity() {
 
     lateinit var meal: Meal
@@ -36,7 +43,6 @@ class MealActivity : AppCompatActivity() {
     lateinit var backButton: ImageButton
     lateinit var addToFavBtn: Button
     lateinit var planMealBtn: Button
-    private val TAG = "MealActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -141,7 +147,6 @@ class MealActivity : AppCompatActivity() {
                     }
                 }
             } catch (e: Exception) {
-                Log.e(TAG, "Error loading meal data: ${e.message}", e)
                 withContext(Dispatchers.Main) {
                     Toast.makeText(this@MealActivity, "Error loading meal data", Toast.LENGTH_SHORT).show()
                 }

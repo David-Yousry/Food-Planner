@@ -1,24 +1,20 @@
-package com.example.foodplanner
+package com.example.foodplanner.views.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.ImageButton
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.foodplanner.views.fragments.HomeFragment
+import com.example.foodplanner.R
+import com.example.foodplanner.views.fragments.SearchFragment
+import com.example.foodplanner.views.fragments.WeekMealsFragment
 import com.example.foodplanner.databinding.ActivityMainBinding
 import com.example.foodplanner.utils.FragmentReplacer
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
 
 class MainActivity : AppCompatActivity(), FragmentReplacer {
 
@@ -27,22 +23,22 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
     private lateinit var profileBtn : ImageButton
 
 
-    private val TAG = "MainActivity"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Thread.sleep(2000)
         installSplashScreen()
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 
 
         val replaceFrag = intent.getStringExtra("replaceFrag")
 
         if(replaceFrag != null) {
             if (replaceFrag == "MyPlans") {
-                Log.i(TAG, "onCreate: $replaceFrag")
                 replaceFragment(WeekMealsFragment())
+                bottomNavigationView.setSelectedItemId(R.id.weekMealsBtn)
             }
         }
         else{
@@ -57,7 +53,6 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
                 .into(findViewById(R.id.profileBtn))
 
         }
-
 
 
         binding.bottomNavigationView.setOnItemSelectedListener {
@@ -100,15 +95,4 @@ class MainActivity : AppCompatActivity(), FragmentReplacer {
         transaction.replace(R.id.mainFragment,fragment)
         transaction.commit()
     }
-
-
-//    private fun putImage(){
-//        val googleSignInAccount = GoogleSignIn.getLastSignedInAccount(this)
-//        if (googleSignInAccount != null) {
-//            val photoUrl = googleSignInAccount.photoUrl
-//            Glide.with(this)
-//                .load(photoUrl)
-//                .into(findViewById(R.id.header_nav_image))
-//        }
-//    }
 }

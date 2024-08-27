@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".MainActivity"
+    tools:context=".views.activities.MainActivity"
 
     >
 
@@ -45,7 +45,7 @@
 
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/mainFragment"
-                android:name="com.example.foodplanner.HomeFragment"
+                android:name="com.example.foodplanner.views.fragments.HomeFragment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
         </FrameLayout>

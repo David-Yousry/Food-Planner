@@ -32,7 +32,6 @@ class MealAdapter(val meals: List<Meal>, val onClick: (Meal) -> Int) : RecyclerV
         val meal = meals[position]
         holder.name.text = meal.strMeal
         Glide.with(holder.itemView.context).load(meals[position].strMealThumb).into(holder.img)
-        //TODO apply DP rules here
         holder.itemView.setOnClickListener {
             onClick(meal)
         }

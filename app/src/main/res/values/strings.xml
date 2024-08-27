@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Food Planner</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="testMealName">Pasta SeaFood</string>
     <string name="testMealDescription">Pasta seafood meal with some kind of fish that idk and chopsticks</string>

@@ -16,28 +16,28 @@
         android:theme="@style/Theme.FoodPlanner"
         tools:targetApi="31">
         <activity
-            android:name=".SearchBarMealsActivity"
+            android:name=".views.activities.SearchBarMealsActivity"
             android:exported="false" />
         <activity
-            android:name=".GuestProfileActivity"
+            android:name=".views.activities.GuestProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".views.activities.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".SearchMealsActivity"
+            android:name=".views.activities.SearchMealsActivity"
             android:exported="false" />
         <activity
-            android:name=".FavoriteMealsActivity"
+            android:name=".views.activities.FavoriteMealsActivity"
             android:exported="false" />
         <activity
             android:name=".MealActivity"
             android:exported="false" />
         <activity
-            android:name=".UserProfileActivity"
+            android:name=".views.activities.UserProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".views.activities.SignInActivity"
             android:exported="true"
             android:theme="@style/Theme.FoodPlanner">
             <intent-filter>

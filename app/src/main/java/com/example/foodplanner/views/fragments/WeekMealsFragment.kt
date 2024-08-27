@@ -1,4 +1,4 @@
-package com.example.foodplanner
+package com.example.foodplanner.views.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,18 +9,22 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.foodplanner.MealActivity
+import com.example.foodplanner.R
 import com.example.foodplanner.db.MealsDatabase
 import com.example.foodplanner.models.Meal
+import com.example.foodplanner.viewModels.WeekFragmentViewModel
+import com.example.foodplanner.viewModels.WeekFragmentViewModelFactory
+import com.example.foodplanner.views.activities.SignInActivity
 import com.example.foodplanner.views.adapters.SmallMealCardAdapter
 import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class WeekMealsFragment : Fragment() {
+
+    lateinit var viewModel: WeekFragmentViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -86,99 +90,94 @@ class WeekMealsFragment : Fragment() {
         }
 
 
-        lifecycleScope.launch(Dispatchers.IO){
-            val mealsDao = MealsDatabase.getInstance(requireContext()).mealsDao()
-            val planMeals = mapOf(
-                "Sunday" to mealsDao.getPlanMealsByDay("Sunday"),
-                "Monday" to mealsDao.getPlanMealsByDay("Monday"),
-                "Tuesday" to mealsDao.getPlanMealsByDay("Tuesday"),
-                "Wednesday" to mealsDao.getPlanMealsByDay("Wednesday"),
-                "Thursday" to mealsDao.getPlanMealsByDay("Thursday"),
-                "Friday" to mealsDao.getPlanMealsByDay("Friday"),
-                "Saturday" to mealsDao.getPlanMealsByDay("Saturday")
-            )
-            withContext(Dispatchers.Main){
+        setupViewModel()
 
-                if(planMeals["Sunday"]!!.isEmpty()){
-                    sundayRecycler.visibility = View.GONE
-                    noPlanSunday.visibility = View.VISIBLE
-                }
-                else {
-                    sundayRecycler.adapter = SmallMealCardAdapter(planMeals["Sunday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-                if(planMeals["Monday"]!!.isEmpty()){
-                    mondayRecycler.visibility = View.GONE
-                    noPlanMonday.visibility = View.VISIBLE
-                }
-                else {
-                    mondayRecycler.adapter = SmallMealCardAdapter(planMeals["Monday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-
-                if(planMeals["Tuesday"]!!.isEmpty()){
-                    tuesdayRecycler.visibility = View.GONE
-                    noPlanTuesday.visibility = View.VISIBLE
-                }
-                else {
-                    tuesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Tuesday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-                if(planMeals["Wednesday"]!!.isEmpty()){
-                    wednesdayRecycler.visibility = View.GONE
-                    noPlanWednesday.visibility = View.VISIBLE
-                }
-                else {
-                    wednesdayRecycler.adapter = SmallMealCardAdapter(planMeals["Wednesday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-                if(planMeals["Thursday"]!!.isEmpty()){
-                    thursdayRecycler.visibility = View.GONE
-                    noPlanThursday.visibility = View.VISIBLE
-                }
-                else {
-                    thursdayRecycler.adapter = SmallMealCardAdapter(planMeals["Thursday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-
-                if(planMeals["Friday"]!!.isEmpty()){
-                    fridayRecycler.visibility = View.GONE
-                    noPlanFriday.visibility = View.VISIBLE
-                }
-                else {
-                    fridayRecycler.adapter = SmallMealCardAdapter(planMeals["Friday"]!!) {
-                        onMealClick(it)
-                    }
-                }
-
-
-                if(planMeals["Saturday"]!!.isEmpty()){
-                    saturdayRecycler.visibility = View.GONE
-                    noPlanSaturday.visibility = View.VISIBLE
-                }
-                else {
-                    saturdayRecycler.adapter =SmallMealCardAdapter(planMeals["Saturday"]!!) {
-                            onMealClick(it)
-                    }
-                }
+        viewModel.getSundayMeals()
+        viewModel.getMondayMeals()
+        viewModel.getTuesdayMeals()
+        viewModel.getWednesdayMeals()
+        viewModel.getThursdayMeals()
+        viewModel.getFridayMeals()
+        viewModel.getSaturdayMeals()
 
 
 
+        viewModel.sundayMeals.observe(viewLifecycleOwner) { sundayMeals ->
+            if (sundayMeals.isEmpty()) {
+                sundayRecycler.visibility = View.GONE
+                noPlanSunday.visibility = View.VISIBLE
+            } else {
+                sundayRecycler.adapter = SmallMealCardAdapter(sundayMeals) { meal ->
+                    onMealClick(meal)
+                }
             }
         }
 
+        viewModel.mondayMeals.observe(viewLifecycleOwner) { mondayMeals ->
+            if (mondayMeals.isEmpty()) {
+                mondayRecycler.visibility = View.GONE
+                noPlanMonday.visibility = View.VISIBLE
+            } else {
+                mondayRecycler.adapter = SmallMealCardAdapter(mondayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
 
+        viewModel.tuesdayMeals.observe(viewLifecycleOwner) { tuesdayMeals ->
+            if (tuesdayMeals.isEmpty()) {
+                tuesdayRecycler.visibility = View.GONE
+                noPlanTuesday.visibility = View.VISIBLE
+            } else {
+                tuesdayRecycler.adapter = SmallMealCardAdapter(tuesdayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
 
+        viewModel.wednesdayMeals.observe(viewLifecycleOwner) { wednesdayMeals ->
+            if (wednesdayMeals.isEmpty()) {
+                wednesdayRecycler.visibility = View.GONE
+                noPlanWednesday.visibility = View.VISIBLE
+            } else {
+                wednesdayRecycler.adapter = SmallMealCardAdapter(wednesdayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
+
+        viewModel.thursdayMeals.observe(viewLifecycleOwner) { thursdayMeals ->
+            if (thursdayMeals.isEmpty()) {
+                thursdayRecycler.visibility = View.GONE
+                noPlanThursday.visibility = View.VISIBLE
+            } else {
+                thursdayRecycler.adapter = SmallMealCardAdapter(thursdayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
+
+        viewModel.fridayMeals.observe(viewLifecycleOwner) { fridayMeals ->
+            if (fridayMeals.isEmpty()) {
+                fridayRecycler.visibility = View.GONE
+                noPlanFriday.visibility = View.VISIBLE
+            } else {
+                fridayRecycler.adapter = SmallMealCardAdapter(fridayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
+
+        viewModel.saturdayMeals.observe(viewLifecycleOwner) { saturdayMeals ->
+            if (saturdayMeals.isEmpty()) {
+                saturdayRecycler.visibility = View.GONE
+                noPlanSaturday.visibility = View.VISIBLE
+            } else {
+                saturdayRecycler.adapter = SmallMealCardAdapter(saturdayMeals) { meal ->
+                    onMealClick(meal)
+                }
+            }
+        }
 
         return view
     }
@@ -189,5 +188,36 @@ class WeekMealsFragment : Fragment() {
         startActivity(intent)
         return 0
     }
+
+    private fun setupViewModel(){
+        val dao = MealsDatabase.getInstance(requireContext()).mealsDao()
+        val factory = WeekFragmentViewModelFactory(dao)
+        viewModel = ViewModelProvider(this, factory).get(WeekFragmentViewModel::class.java)
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

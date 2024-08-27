@@ -16,11 +16,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
+
+
+
+
+
+
+// ############################################################ MVVM will be applied in the next version ######################################################
+
+
 class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected: (String) -> Unit) : DialogFragment() {
 
     private lateinit var mealDays: List<String>
-
-    private val TAG = "PlanMealDialogFragment"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,14 +65,12 @@ class PlanMealDialogFragment(private val meal : Meal, private val onDaySelected:
             lifecycleScope.launch(Dispatchers.IO){
 
                 if(meal.mealPlans.contains("Sunday1")) {
-                    Log.i(TAG, "onCreateView: YEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA")
                     meal.mealPlans = meal.mealPlans.replace("Sunday1", "Sunday0")
                     mealsDao.insertMeal(meal)
                     isNowPlanned = false
                 }
                 else {
                     onDaySelected("Sunday")
-                    Log.i(TAG, "onCreateView: NAHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH")
                     isNowPlanned = true
                 }
                 withContext(Dispatchers.Main){
